@@ -9,7 +9,7 @@ $ python unbabel_cli.py -h
 
 usage: unbabel_cli.py [-h] --input-file INPUT-FILE [--window-size N]
 
-unbabel_cli.py: error: argument --input-file is required
+unbabel_cli.py: error: argument --input-file is required. This should be the path to the file containing the events.
 ```
 
 Note: Default value for `--window-size` is 10 minutes
