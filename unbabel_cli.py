@@ -9,7 +9,7 @@ if __name__ == "__main__":
                         required=True,
                         help='File containing discrete events seperated by new line. An event:- {"timestamp": "2018-12-26 18:11:08.509654","translation_id": "12ab","source_language": "en","target_language": "fr","client_name": "easyjet","event_name": "translation_delivered","nr_words": 30, "duration": 20}')
     parser.add_argument('--window-size', dest='timeFrame', metavar="N",
-                        help='Time frame in minutes up to which time series is computed.', default=25, type=int)
+                        help='Time frame in minutes up to which time series is computed.', default=10, type=int)
     args = parser.parse_args()
     timeUnits = computeTimeSeries(args.timeFrame, FileHandler.read(args.eventsFile))
     FileHandler.write('output.txt', timeUnits)

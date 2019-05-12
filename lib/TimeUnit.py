@@ -19,7 +19,7 @@ class TimeUnit(object):
         self.events.append(event)
 
     def __str__(self):
-        return '{'+'"from": "' + str(self.fromTS) + '", to": "' + str(self.toTS) + '", "average_delivery_time": ' + str(self.average_delivery_time) +  '", "total events": ' + str(len(self.events)) +  '}'
+        return '{ "date": "' + str(self.toTS) + '", "average_delivery_time": ' + str(self.average_delivery_time) +' }'
 
     def __eq__(self, other):
         return isinstance(other, TimeUnit) and other.fromTS == self.fromTS and other.toTS == self.toTS
