@@ -28,13 +28,23 @@ def computeTimeSeries(timeFrame, events):
         if currEvent.timestamp < timeFrameEndTS:
             endCurrEventTS = currEvent.timestamp + timedelta(minutes=currEvent.duration)
             currEventTS = roundSecondsFloor(currEvent.timestamp)
+            currWords = 0.0
             while currEventTS <= timeFrameEndTS and endCurrEventTS > currEventTS:
                 lowertimeunit = currEventTS - timedelta(minutes=1)
                 unit = TimeUnit(lowertimeunit, currEventTS)
                 if currEvent.timestamp <= currEventTS:
                     if unit not in timeUnits:
                         bisect.insort_left(timeUnits, unit)
-                    timeUnits[timeUnits.index(unit)].addEvent(currEvent)
+                    currWords += currEvent.wordsPerMinute
+                    noOfWords = 0
+                    if currWords != 0:
+                        if not currWords.is_integer():
+                            noOfWords = 0
+                        elif not currEvent.wordsPerMinute.is_integer():
+                            noOfWords = 1
+                        else:
+                            noOfWords = currEvent.wordsPerMinute
+                    timeUnits[timeUnits.index(unit)].addEvent(currEvent, noOfWords)
                 else:
                     if unit not in timeUnits:
                         bisect.insort_left(timeUnits, unit)
@@ -46,6 +56,7 @@ def computeTimeSeries(timeFrame, events):
                     lowertimeunit = currEventTS - timedelta(minutes=1)
                     bisect.insort_left(timeUnits, TimeUnit(lowertimeunit, currEventTS))
                     currEventTS = currEventTS + timedelta(minutes=1)
+
     # Add entries for when time frame is still pending after completion of events
     while currEventTS < timeFrameEndTS:
         lowertimeunit = currEventTS - timedelta(minutes=1)
