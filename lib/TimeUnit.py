@@ -1,7 +1,6 @@
 '''
-Time Unit represents statistics in a timeslot
+Time Unit represents statistics in a time slot
 '''
-from datetime import timedelta
 
 
 class TimeUnit(object):
@@ -18,7 +17,7 @@ class TimeUnit(object):
 
     def addEvent(self, event, noOfWords):
         self.average_delivery_time = float(self.average_delivery_time * len(self.events) + event.duration) / (
-                    len(self.events) + 1)
+                len(self.events) + 1)
         self.events.append(event)
         self.words += noOfWords
 

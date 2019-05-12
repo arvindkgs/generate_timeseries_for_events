@@ -8,11 +8,22 @@ Invoke the python tool as,
 $ python unbabel_cli.py -h
 
 usage: unbabel_cli.py [-h] --input-file INPUT-FILE [--window-size N]
+                      [--time-slot T]
 
-unbabel_cli.py: error: argument --input-file is required. This should be the path to the file containing the events.
+Computes and returns a ordered time series of average delivery time and other
+statistics from given input file, in a specific window/time-frame
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input-file INPUT-FILE
+                        (Required) Path to file containing discrete events seperated
+                        by new line.
+  --window-size N       (Optional) Time frame in minutes up to which time
+                        series is computed. Defaults to 10 minutes
+  --time-slot T         (Optional) Time slot duration in minutes. Defaults to
+                        1 min
+
 ```
-
-Note: Default value for `--window-size` is 10 minutes
 
 Passing following input file to the tool:  
 
@@ -55,9 +66,10 @@ Computation of 'average_delivery_time' in i<sup>th</sup> time slot in time serie
  
 There are two ways to solve the problem.
 1. Loop through all one minute time slots in time frame, inner-loop through all events and compute avg delivery time and words
-2. Maintain time slot information and loop through all events, updating the appropriate time slots information.
+2. Maintain time slot information and loop through all events, and for each event loop through the time slots updating the time slot information if event execution is within the time frame. 
 
-The first is O(n<sup>2</sup>), while the second is O(n). So I went with the second approach.
+Both approaches takes O(n<sup>2</sup>), while the second is O(n) if there are no overlapping events (best case scenario). So went with second approach.
 
 # Enhancements
-1. Currently the time slots are fixed at one minute, however, this should be configurable.  
+1. Added computation of words per time slot.
+2. Currently the time slots are fixed at one minute, however, this can be configured by setting the `--time-slot ` optional argument.    

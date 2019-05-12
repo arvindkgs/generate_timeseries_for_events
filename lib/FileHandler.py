@@ -1,6 +1,11 @@
 import json
 from Event import Event
 
+'''
+Helper methods to read events file and write output file 
+'''
+
+
 def read(eventsFile):
     eventsStr = '[' + eventsFile.read() + ']'
     eventsStr = eventsStr.replace('\n', ',')

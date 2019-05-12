@@ -1,5 +1,10 @@
 from datetime import datetime
 
+'''
+Event Object read from input file
+'''
+
+
 class Event:
     def __init__(self, **kwargs):
         if 'timestamp' not in kwargs:
@@ -24,8 +29,8 @@ class Event:
                 self.client_name = value
             elif key == 'event_name':
                 self.event_name = value
-        self.minutesPerWord = float(self.duration)/self.nr_words
-        self.wordsPerMinute = float(self.nr_words)/self.duration
+        self.minutesPerWord = float(self.duration) / self.nr_words
+        self.wordsPerMinute = float(self.nr_words) / self.duration
 
     def __str__(self):
         return str(vars(self))
