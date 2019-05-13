@@ -66,7 +66,7 @@ Computation of 'average_delivery_time' in i<sup>th</sup> time slot in time serie
  
 There are two ways to solve the problem.
 1. Loop through all one minute time slots in time frame, inner-loop through all events and compute avg delivery time and words
-2. Maintain time slot information and loop through all events, and for each event loop through the time slots updating the time slot information if event execution is within the time frame. 
+2. Order the events chronologically, maintain time slot information and loop through all events, and for each event loop through the pertinent time slots updating the time slot information if event execution is within the time frame. 
 
 Both approaches takes O(n<sup>2</sup>), while the second is O(n) if there are no overlapping events (best case scenario). So went with second approach.
 
