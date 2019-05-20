@@ -57,7 +57,7 @@ Computation of 'average_delivery_time' in i<sup>th</sup> time slot in time serie
 * Average delivery time = avg(list(durations of all events that fall in i<sup>th</sup> slot))
     * Consider the 6<sup>th</sup> entry in output : `{ "date": "2018-12-26 18:16:00", "average_delivery_time": 25.5 }`
     * 1<sup>st</sup> Event, and 2<sup>nd</sup> are still running in the time slot `from : 2018-12-26 18:15:00, to : 2018-12-26 18:15:99`.
-    * So, Average Delivery Time = (20 (Duration of 1<sup>st</sup> Event) + 25 (Duration of 2<sup>nd</sup> Event) )  = 25.5 
+    * So, Average Delivery Time = Avg(20 (Duration of 1<sup>st</sup> Event) , 25 (Duration of 2<sup>nd</sup> Event) )  = 25.5 
 * Number of words, in a time slot, as
     * wordsPerMin per event = (words of event)/(duration of event)
     * This is accumulated per event in given time slot 
@@ -66,7 +66,7 @@ Computation of 'average_delivery_time' in i<sup>th</sup> time slot in time serie
  
 There are two ways to solve the problem.
 1. Loop through all one minute time slots in time frame, inner-loop through all events and compute avg delivery time and words
-2. Maintain time slot information and loop through all events, and for each event loop through the time slots updating the time slot information if event execution is within the time frame. 
+2. Order the events chronologically, maintain time slot information and loop through all events, and for each event loop through the pertinent time slots updating the time slot information if event execution is within the time frame. 
 
 Both approaches takes O(n<sup>2</sup>), while the second is O(n) if there are no overlapping events (best case scenario). So went with second approach.
 
